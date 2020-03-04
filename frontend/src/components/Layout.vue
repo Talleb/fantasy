@@ -4,9 +4,9 @@
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
+            <v-icon >mdi-home</v-icon >
           </v-list-item-action>
-          <v-list-item-content>
+          <v-list-item-content @click="$router.push('/Draft')"> 
             <v-list-item-title>Ultimate Draft</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
