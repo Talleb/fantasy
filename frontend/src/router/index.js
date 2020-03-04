@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import players from "../views/Players.vue";
 import draft from "../views/Draft.vue";
 import highscore from "../views/Highscore.vue";
+=======
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
+import players from '../views/Players.vue'
+import Draft from '../views/Draft.vue'
+>>>>>>> 7dbfe537046dcec7fff8e7ae58a5f527c6c8e50d
 
 Vue.use(VueRouter);
 

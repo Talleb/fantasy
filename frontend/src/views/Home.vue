@@ -46,7 +46,7 @@
     <div class="draften">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
-      <button @click="$router.push('/draft')" class="btn">
+      <button @click="$router.push('/Draft')" class="btn">
         starta draften
       </button>
     </div>

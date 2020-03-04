@@ -27,6 +27,7 @@
         playersInfo:null,
         search: '',
         headers: [
+          { text: 'Number', value: 'Number' },
           {
             text: ' Players Name',
             align: 'start',
@@ -34,8 +35,8 @@
             value: 'name',
           },
           { text: 'Age', value: 'Age' },
+          { text: 'Team', value: 'Team' },
           { text: 'Nationality', value: 'Nationality' },
-          { text: 'Number', value: 'Number' },
           { text: 'Position', value: 'Position' },
           { text: 'Skills', value: 'Skills' }
         ],
@@ -46,7 +47,7 @@
         let data = await fetch('http://localhost:3000/')
         let players = await data.json()
         this.playersInfo = players //Getting info of all players
-        // console.log(this.playersInfo)
+        console.log(this.playersInfo)
         this.playersInfo.forEach(player => {
           let playerInformation = {
             name: `${player.FirstName} ${player.LastName}`,
@@ -54,7 +55,8 @@
             Nationality: player.Nationality,
             Number: player.Number,
             Position: player.Position,
-            Skills:player.Skills
+            Skills:player.Skills,
+            Team:player.Team
           }
           this.desserts.push(playerInformation)
           // console.log(player)
