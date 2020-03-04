@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p 
+    v-for="player in players"  
+    :key="player"> 
+    {{player.FirstName}}</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
+  },
+  data() {
+    return{
+    players: []
+    }
+  },
+  created() {
+    setTimeout(() => {
+      fetch("http://localhost:3000/")
+        .then(response => response.json())
+        .then(result => {
+          this.players = result;
+          console.log(result);
+        });
+    }, 1000);
   }
-}
+};
 </script>
