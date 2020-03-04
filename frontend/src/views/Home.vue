@@ -25,7 +25,7 @@
       reiciendis repudiandae iure adipisci labore!
     </p>
     <div class="grid">
-      <h1>Highscore</h1>
+      <h1>Highscore top 5</h1>
       <table class="table">
         <thead>
           <tr>
@@ -99,18 +99,18 @@ export default {
     };
   },
   created() {
-    setTimeout(() => {
-      fetch("http://localhost:3000/highscore")
-        .then(response => response.json())
-        .then(result => {
-          this.highscore = result;
-          console.log(result);
-        });
-    }, 1000);
+    fetch("http://localhost:3000/highscore")
+      .then(response => response.json())
+      .then(result => {
+        this.highscore = result;
+        console.log(result);
+      });
   },
   computed: {
     sortedPoints() {
-      return this.highscore.sort((a, b) => b.Total - a.Total);
+      const a = this.highscore.slice();
+      a.sort((a, b) => b.Total - a.Total);
+      return a.slice(0, 5);
     }
   }
 };
