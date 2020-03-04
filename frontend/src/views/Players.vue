@@ -44,7 +44,7 @@
       }
     },
     async created(){ 
-        let data = await fetch('http://localhost:3000/')
+        let data = await fetch('http://localhost:3000/Jugadores')
         let players = await data.json()
         this.playersInfo = players //Getting info of all players
         console.log(this.playersInfo)
