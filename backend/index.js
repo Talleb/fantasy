@@ -18,7 +18,6 @@ sqlite.open('fotboll.sqlite').then(database_ => {
 //Configuring the API 
 app.get('/', (request, response) => {
     database.all('SELECT * FROM players').then(players => {
-        response.send(players)
-        console.log([players])
+        response.json(players)
     })
 })
