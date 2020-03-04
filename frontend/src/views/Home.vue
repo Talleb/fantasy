@@ -27,27 +27,20 @@
     <div class="grid">
       <h1>Highscore</h1>
       <table class="table">
-        <tr>
-          <th>User</th>
-          <th>Team Name</th>
-          <th>Totalt</th>
-        </tr>
-        <tr>
-          <td>Markus</td>
-          <td>DimDim</td>
-          <td>Talle</td>
-        </tr>
-        <tr>
-          <td>Wiland</td>
-          <td>DimDimDev</td>
-          <td>Talle the G</td>
-        </tr>
-
-        <tr>
-          <td>335</td>
-          <td>255</td>
-          <td>325W</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Team Name</th>
+            <th>Total points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="score in sortedPoints" :key="score">
+            <td>{{ score.User }}</td>
+            <td>{{ score.Team }}</td>
+            <td>{{ score.Total }}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div class="draften">
@@ -89,7 +82,7 @@
   width: 33%;
 }
 .table td {
-  padding-left: 10px;
+  text-align: center;
 }
 .table tr:nth-child(odd) {
   background-color: #f5f5f5;
@@ -102,18 +95,23 @@ export default {
   components: {},
   data() {
     return {
-      players: []
+      highscore: []
     };
   },
   created() {
     setTimeout(() => {
-      fetch("http://localhost:3000/")
+      fetch("http://localhost:3000/highscore")
         .then(response => response.json())
         .then(result => {
-          this.players = result;
+          this.highscore = result;
           console.log(result);
         });
     }, 1000);
+  },
+  computed: {
+    sortedPoints() {
+      return this.highscore.sort((a, b) => b.Total - a.Total);
+    }
   }
 };
 </script>
