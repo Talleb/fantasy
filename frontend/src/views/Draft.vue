@@ -1,11 +1,7 @@
 <template>
   <div class="draft" v-if="is_data_fetched">
-<<<<<<< HEAD
-    <selectPlayer></selectPlayer>
-    <v-container fixed>
-=======
+    <selectPlayer/>
     <v-container fluid>
->>>>>>> e658a3034ebcf0a045b02e60ab58f89b0ff38466
       <v-row>
         <v-col cols="12">
           <v-row align="center" justify="center">
