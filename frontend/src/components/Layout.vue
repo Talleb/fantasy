@@ -6,8 +6,20 @@
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
-          <v-list-item-content @click="$router.push('/Draft')">
-            <v-list-item-title>Ultimate Draft</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link to="/">Home</router-link>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item link>
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link to="/Draft">Ultimate Draft</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -15,11 +27,9 @@
             <v-icon>mdi-contact-mail</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title
-              ><router-link to="/players"
-                >Players</router-link
-              ></v-list-item-title
-            >
+            <v-list-item-title>
+              <router-link to="/players">Players</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -27,11 +37,9 @@
             <v-icon>mdi-graph</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title
-              ><router-link to="/highscore"
-                >Highscore</router-link
-              ></v-list-item-title
-            >
+            <v-list-item-title>
+              <router-link to="/highscore">Highscore</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -39,9 +47,7 @@
 
     <v-app-bar app color="green" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title @click="$router.push('/')"
-        >The Ultimate Draft</v-toolbar-title
-      >
+      <v-toolbar-title @click="$router.push('/')">The Ultimate Draft</v-toolbar-title>
     </v-app-bar>
 
     <v-content>
@@ -61,7 +67,7 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: true
+    drawer: false
   })
 };
 </script>
