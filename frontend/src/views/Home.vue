@@ -42,12 +42,17 @@
           </tr>
         </tbody>
       </table>
-      <router-link to="/highscore">Gå till Highscore listan</router-link>
+      <router-link to="/highscore">
+        <button class="btn">Gå till Highscore listan</button>
+      </router-link>
     </div>
+    <Modal />
     <div class="draften">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
-      <button @click="$router.push('/Draft')" class="btn">starta draften</button>
+      <router-link to="/Draft">
+        <button class="btn">starta draften</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -91,9 +96,12 @@
 </style>
 
 <script>
+import Modal from "../components/Modal";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Modal
+  },
   data() {
     return {
       highscore: []
