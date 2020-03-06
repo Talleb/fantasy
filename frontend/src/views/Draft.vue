@@ -160,11 +160,14 @@
           </v-row>
         </v-col>
       </v-row>
+      <Form/>
     </v-container>
   </div>
 </template>
 
 <script>
+import Form from '../components/Form'
+
 export default {
   name: "draft",
   created() {
@@ -181,7 +184,9 @@ export default {
   methods: {
     countTotal() {}
   },
-  components: {},
+  components: {
+    Form,
+  },
   data() {
     return {
       country: [],
