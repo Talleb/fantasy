@@ -1,17 +1,9 @@
-<<<<<<< HEAD
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import players from "../views/Players.vue";
+import Players from "../views/Players.vue";
 import draft from "../views/Draft.vue";
-import highscore from "../views/Highscore.vue";
-=======
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import players from '../views/Players.vue'
-import Draft from '../views/Draft.vue'
->>>>>>> 7dbfe537046dcec7fff8e7ae58a5f527c6c8e50d
+import Highscore from "../views/Highscore.vue";
 
 Vue.use(VueRouter);
 
@@ -33,7 +25,7 @@ const routes = [
   {
     path: "/players",
     name: "Players",
-    component: players
+    component: Players
   },
   {
     path: "/draft",
@@ -43,7 +35,7 @@ const routes = [
   {
     path: "/highscore",
     name: "Highscore",
-    component: highscore
+    component: Highscore
   }
 ];
 
