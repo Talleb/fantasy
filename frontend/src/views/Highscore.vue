@@ -1,24 +1,21 @@
 <template>
   <div class="home">
-    <div class="grid">
-      <h1>Highscore</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Team Name</th>
-            <th>Total points</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="score in sortedPoints" :key="score">
-            <td>{{ score.User }}</td>
-            <td>{{ score.Team }}</td>
-            <td>{{ score.Total }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <v-app id="inspire">
+      <v-card>
+        <v-card-title>
+          Highscore Table
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table :headers="headers" :items="highScoreTable" :search="search"></v-data-table>
+      </v-card>
+    </v-app>
   </div>
 </template>
 
@@ -64,23 +61,31 @@ export default {
   components: {},
   data() {
     return {
-      highscore: []
+      search: "",
+      headers: [
+        {
+          text: "Name",
+          value: "Name"
+        },
+        { text: "Team Name", value: "TeamName" },
+        { text: "Total Points", value: "TotalPoints" }
+      ],
+      highScoreTable: []
     };
   },
   created() {
     fetch("http://localhost:3000/highscore")
       .then(response => response.json())
       .then(result => {
-        this.highscore = result;
-        console.log(result);
+        result.forEach(score => {
+          const scoreTable = {
+            Name: score.User,
+            TeamName: score.Team,
+            TotalPoints: score.Total
+          };
+          this.highScoreTable.push(scoreTable);
+        });
       });
-  },
-  computed: {
-    sortedPoints() {
-      const a = this.highscore.slice();
-      a.sort((a, b) => b.Total - a.Total);
-      return a;
-    }
   }
 };
 </script>

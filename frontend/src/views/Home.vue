@@ -42,13 +42,12 @@
           </tr>
         </tbody>
       </table>
+      <router-link to="/highscore">Gå till Highscore listan</router-link>
     </div>
     <div class="draften">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
-      <button @click="$router.push('/Draft')" class="btn">
-        starta draften
-      </button>
+      <button @click="$router.push('/Draft')" class="btn">starta draften</button>
     </div>
   </div>
 </template>
@@ -80,9 +79,11 @@
 }
 .table th {
   width: 33%;
+  padding: 7px;
 }
 .table td {
   text-align: center;
+  padding: 7px;
 }
 .table tr:nth-child(odd) {
   background-color: #f5f5f5;
