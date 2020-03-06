@@ -37,6 +37,10 @@ const routes = [
     name: "Highscore",
     component: highscore
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e658a3034ebcf0a045b02e60ab58f89b0ff38466
 ];
 
 const router = new VueRouter({
