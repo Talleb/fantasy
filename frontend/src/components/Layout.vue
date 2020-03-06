@@ -61,7 +61,7 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: true
+    drawer: false
   })
 };
 </script>
