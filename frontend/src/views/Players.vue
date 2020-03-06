@@ -2,7 +2,7 @@
   <v-card>
     <!-- <button @click="getPlayers">Check players</button> -->
     <v-card-title>
-      Nutrition
+      Player Information
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -50,7 +50,7 @@
         console.log(this.playersInfo)
         this.playersInfo.forEach(player => {
           let playerInformation = {
-            name: `${player.FirstName} ${player.LastName}`,
+            name: `${player.FirstName} ${player.LastName == undefined ? "" : player.LastName}`,
             Age: player.Age,
             Nationality: player.Nationality,
             Number: player.Number,

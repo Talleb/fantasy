@@ -32,4 +32,32 @@ app.get('/Highscore', (request, response) => {
     console.log([players]);
   });
 });
+
+//Sorting Players by Position
+//*****GoaldKepper Field API */
+app.get('/GoalKepper', (request, response)=>{
+  database.all('SELECT * FROM players WHERE Position = ?', 'Goalkeeper').then(playerMV =>{
+    response.json(playerMV)
+  })
+})
+//*****Back Field API */
+app.get('/BackField', (request, response)=>{
+  database.all('SELECT * FROM players WHERE Position = ?', 'Defender').then(playerMV =>{
+    response.json(playerMV)
+  })
+})
+/***** Mind Field API */
+app.get('/MidField', (request, response)=>{
+  database.all('SELECT * FROM players WHERE Position = ?', 'Midfielder').then(playerMV =>{
+    response.json(playerMV)
+  })
+})
+
+/***** Front Field API */
+app.get('/FrontField', (request, response)=>{
+  database.all('SELECT * FROM players WHERE Position = ?', 'Forward').then(playerMV =>{
+    response.json(playerMV)
+  })
+})
+
 app.listen(3000);

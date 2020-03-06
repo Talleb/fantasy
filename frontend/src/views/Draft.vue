@@ -1,5 +1,6 @@
 <template>
   <div class="draft" v-if="is_data_fetched">
+    <selectPlayer></selectPlayer>
     <v-container fixed>
       <v-row>
         <v-col cols="12">
@@ -165,6 +166,7 @@
 </template>
 
 <script>
+import selectPlayer from '../components/SelectPlayer'
 export default {
   name: "draft",
   created() {
@@ -181,7 +183,9 @@ export default {
   methods: {
     countTotal() {}
   },
-  components: {},
+  components: {
+    selectPlayer
+  },
   data() {
     return {
       country: [],
