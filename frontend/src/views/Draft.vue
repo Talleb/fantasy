@@ -157,11 +157,14 @@
         </v-col>
       </v-row>
     </v-container>
+    <Form/>
   </div>
 </template>
 
 <script>
 import selectPlayer from '../components/SelectPlayer'
+import Form from '../components/Form'
+
 export default {
   name: "draft",
   created() {
@@ -179,7 +182,8 @@ export default {
     countTotal() {}
   },
   components: {
-    selectPlayer
+    selectPlayer,
+    Form
   },
   data() {
     return {
