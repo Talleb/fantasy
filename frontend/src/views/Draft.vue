@@ -1,17 +1,18 @@
 <template>
   <div class="draft" v-if="is_data_fetched">
-    <v-container fixed>
+    <v-container fluid>
       <v-row>
         <v-col cols="12">
           <v-row align="center" justify="center">
             <section class="Forwards">
-              Forward
+              Forward {{pickedPlayers[0].id !== undefined }}
               <v-container fluid>
                 <v-row>
                   <v-col cols="12">
                     <v-row align="center" justify="center">
+                      <template  v-for="(position,index) in formation[3]">
                       <v-card
-                        v-for="position in formation[3]"
+                      v-if="(pickedPlayers[index+9].id !== undefined)"
                         :key="position"
                         max-width="250"
                         class="mx-auto"
@@ -20,37 +21,35 @@
                           <v-list-item-avatar color="grey"></v-list-item-avatar>
                           <v-list-item-content>
                             <v-list-item-title class="headline">Club</v-list-item-title>
-                            <v-list-item-subtitle>FirstName LastName</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{pickedPlayers[index+9].name}}</v-list-item-subtitle>
                           </v-list-item-content>
                         </v-list-item>
 
                         <v-img class="ma-12" :src="country[0].flag" height="80"></v-img>
 
                         <v-card-text align="center">Skill</v-card-text>
-
-                        <v-card-actions>
-                          <v-btn justify="center" color="green">Add player to position</v-btn>
-                        </v-card-actions>
                       </v-card>
+                      <v-btn v-else :key="position" justify="center" color="green">Add player to position</v-btn>
+                      </template>
                     </v-row>
                   </v-col>
                   <v-col cols="12">
                     <v-row justify="center">
-                      <v-col cols="6" md="2"></v-col>
+                      <v-col cols="4" md="2"></v-col>
                     </v-row>
                   </v-col>
                 </v-row>
               </v-container>
             </section>
-
             <section class="Midfielders">
               Midfielders
               <v-container fixed>
                 <v-row>
                   <v-col cols="12">
                     <v-row align="center" justify="center">
+                     <template  v-for="(position,index) in formation[2]">
                       <v-card
-                        v-for="position in formation[2]"
+                      v-if="(pickedPlayers[index+5].id !== undefined)"
                         :key="position"
                         max-width="250"
                         class="mx-auto"
@@ -59,23 +58,21 @@
                           <v-list-item-avatar color="grey"></v-list-item-avatar>
                           <v-list-item-content>
                             <v-list-item-title class="headline">Club</v-list-item-title>
-                            <v-list-item-subtitle>FirstName LastName</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{pickedPlayers[index+5].name}}</v-list-item-subtitle>
                           </v-list-item-content>
                         </v-list-item>
 
                         <v-img class="ma-12" :src="country[0].flag" height="80"></v-img>
 
                         <v-card-text align="center">Skill</v-card-text>
-
-                        <v-card-actions>
-                          <v-btn color="green">Add player to position</v-btn>
-                        </v-card-actions>
                       </v-card>
+                      <v-btn v-else :key="position" justify="center" color="green">Add player to position</v-btn>
+                      </template>
                     </v-row>
                   </v-col>
                   <v-col cols="12">
                     <v-row justify="center">
-                      <v-col cols="6" md="2"></v-col>
+                      <v-col cols="12" md="2"></v-col>
                     </v-row>
                   </v-col>
                 </v-row>
@@ -87,8 +84,9 @@
                 <v-row>
                   <v-col cols="12">
                     <v-row align="center" justify="center">
+                      <template  v-for="(position,index) in formation[1]">
                       <v-card
-                        v-for="position in formation[1]"
+                      v-if="(pickedPlayers[index+1].id !== undefined)"
                         :key="position"
                         max-width="250"
                         class="mx-auto"
@@ -97,18 +95,16 @@
                           <v-list-item-avatar color="grey"></v-list-item-avatar>
                           <v-list-item-content>
                             <v-list-item-title class="headline">Club</v-list-item-title>
-                            <v-list-item-subtitle>FirstName LastName</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{pickedPlayers[index+1].name}}</v-list-item-subtitle>
                           </v-list-item-content>
                         </v-list-item>
 
                         <v-img class="ma-12" :src="country[0].flag" height="80"></v-img>
 
                         <v-card-text align="center">Skill</v-card-text>
-
-                        <v-card-actions>
-                          <v-btn color="green">Add player to position</v-btn>
-                        </v-card-actions>
                       </v-card>
+                      <v-btn v-else :key="position" justify="center" color="green">Add player to position</v-btn>
+                      </template>
                     </v-row>
                   </v-col>
                   <v-col cols="12">
@@ -121,12 +117,13 @@
             </section>
             <section class="Goalkeeper">
               Goalkeeper
-              <v-container fluid>
+              <v-container fixed>
                 <v-row>
                   <v-col cols="12">
                     <v-row align="center" justify="center">
+                     <template  v-for="(position,index) in formation[0]">
                       <v-card
-                        v-for="position in formation[0]"
+                      v-if="(pickedPlayers[index].id !== undefined)"
                         :key="position"
                         max-width="250"
                         class="mx-auto"
@@ -135,23 +132,21 @@
                           <v-list-item-avatar color="grey"></v-list-item-avatar>
                           <v-list-item-content>
                             <v-list-item-title class="headline">Club</v-list-item-title>
-                            <v-list-item-subtitle>FirstName LastName</v-list-item-subtitle>
+                            <v-list-item-subtitle>{{pickedPlayers[index].name}}</v-list-item-subtitle>
                           </v-list-item-content>
                         </v-list-item>
 
                         <v-img class="ma-12" :src="country[0].flag" height="80"></v-img>
 
                         <v-card-text align="center">Skill</v-card-text>
-
-                        <v-card-actions>
-                          <v-btn color="green">Add player to position</v-btn>
-                        </v-card-actions>
                       </v-card>
+                      <v-btn v-else :key="position" justify="center" color="green">Add player to position</v-btn>
+                      </template>
                     </v-row>
                   </v-col>
                   <v-col cols="12">
                     <v-row justify="center">
-                      <v-col cols="6" md="2"></v-col>
+                      <v-col cols="12" md="2"></v-col>
                     </v-row>
                   </v-col>
                 </v-row>
@@ -189,10 +184,12 @@ export default {
   },
   data() {
     return {
+      active: false,
       country: [],
-      nationality: "sweden",
+      nationality: "ireland",
       teamtotal: [],
-      pickedPlayers: [],
+      pickedPlayers: [{name: "gk", id: 5},{name: "def1"},{name: "def2"},{name: "def3", id: 5},{name: "def4"},
+      {name: "mid1", id: 2},{name: "mid2", id: 3},{name: "mid3", id: 3},{name: "mid4"},{name: "fw1", id:3},{name: "fw2", id:3}],
       formation: [1, 4, 4, 2],
       is_data_fetched: false
     };

@@ -37,7 +37,7 @@ const routes = [
     name: "Highscore",
     component: Highscore
   }
-  
+
 ];
 
 const router = new VueRouter({
