@@ -42,17 +42,13 @@
           </tr>
         </tbody>
       </table>
-      <router-link to="/highscore">
-        <button class="btn">Gå till Highscore listan</button>
-      </router-link>
     </div>
-    <Modal />
     <div class="draften">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
-      <router-link to="/Draft">
-        <button class="btn">starta draften</button>
-      </router-link>
+      <button @click="$router.push('/Draft')" class="btn">
+        starta draften
+      </button>
     </div>
   </div>
 </template>
@@ -84,11 +80,9 @@
 }
 .table th {
   width: 33%;
-  padding: 7px;
 }
 .table td {
   text-align: center;
-  padding: 7px;
 }
 .table tr:nth-child(odd) {
   background-color: #f5f5f5;
@@ -96,12 +90,9 @@
 </style>
 
 <script>
-import Modal from "../components/Modal";
 export default {
   name: "Home",
-  components: {
-    Modal
-  },
+  components: {},
   data() {
     return {
       highscore: []
