@@ -27,18 +27,13 @@
         label="Points"
         required
       ></v-text-field>
-      
-      <!-- <p
-        class="totalpoints"
-        label="Point"
-        required
-      >TOTALPOINTS:{{totalpoints}}</p> -->
       <v-btn class="mr-4" @click="submit({userName, teamName, points})">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
     </form>
   </v-app>
 </div>
 </template>
+
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength} from 'vuelidate/lib/validators'
@@ -50,6 +45,7 @@
   validations: {
     userName: { required, maxLength: maxLength(20) },
     teamName: { required, maxLength: maxLength(20) },
+    points: {required}
   },
 
   data: () => ({
@@ -65,6 +61,7 @@
       !this.$v.userName.maxLength && errors.push('User Name must be at most 20 characters long')
       !this.$v.userName.required && errors.push('User is required.')
       return errors
+      
     },
     teamNameErrors () {
       const errors = []
@@ -91,12 +88,13 @@
   body: JSON.stringify(userName,teamName, points),
 })
 .then((response) => response.json())
-.then((data2) => {
-  console.log('Success:', data2);
+.then((data) => {
+  console.log('Success:', data);
 })
 .catch((error) => {
   console.error('Error:', error);
 });
+
       console.log(userName)
       this.$v.$touch()
     },
