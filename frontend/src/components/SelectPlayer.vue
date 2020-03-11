@@ -1,18 +1,11 @@
 <template>
   <div>
-    <div class="ListofPlayerSelected">
-      <ul>
-        <li>Player One</li>
-      </ul>
-    </div>
-    <v-card-actions @click="getPlayersBackField">
-      <v-btn color="green">Add player to position</v-btn>
-    </v-card-actions>
     <div id="SelectPlayerBox">
       <v-card
         max-width="310"
-        class="mx-auto SelectPlayerCard"  v-for="Player in backField" :key="Player.FirstName"
-      >
+        class="mx-auto SelectPlayerCard"  v-for="Player in SelectedInfo[1]" :key="Player.FirstName"
+        @click="SelectThisPlayer(Player, SelectedInfo[2])"
+       > <!-- One Clicked the Selected player we creat a function that is going to pass player to the Position-->
         <v-list-item>
           <v-list-item-avatar color="grey"></v-list-item-avatar>
           <v-list-item-content>
@@ -30,56 +23,52 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name:"selectPlayer",
-  data(){
-    return{
-      GoalKepper:[], //Players Positions, this is going to send as a PROP to the SelectPlayer Component
-      backField:[], //This is going to pass to the children component
-      midField:[],
-      frontField:[]
+  props:{
+    SelectedInfo:{
+      type:Array
     }
   },
+  data(){
+    return{
+      team:[
+       {frontField:[ {id:1} , {id:2}] },
+     ]
+    }
+  },
+  computed:{
+    ...mapGetters({
+      GoalKeeperObj:'getGoalKeeper',
+      BackFieldObj:'getBackField',
+      MiddleFieldObj:'getMiddleField',
+      ForwardFieldObj:'getForwardField'
+    })
+  },
   methods:{
-    async getPlayersGoalKepper(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/Goalkeeper')
-      let data = await getData.json()
-      console.log(data)
-      for(let i = 0; i < 4; i++){
-        let RP = Math.floor(Math.random() * 71);
-        this.GoalKepper.push(data[RP]);
-      }  
-      console.log(this.GoalKepper)
-    },
-    async getPlayersBackField(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/BackField')
-      let data = await getData.json()
-      console.log(data)
-      for(let i = 0; i < 4; i++){
-        let RP = Math.floor(Math.random() * 71);
-        this.backField.push(data[RP]);
-      }  
-      console.log(this.backField)
-    },
-    async getPlayersMidField(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/MidField')
-      let data = await getData.json()
-      console.log(data)
-      for(let i = 0; i < 4; i++){
-        let RP = Math.floor(Math.random() * 71);
-        this.midField.push(data[RP]);
-      }  
-      console.log(this.midField)
-    },
-    async getPlayersFrontField(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/FrontField')
-      let data = await getData.json()
-      console.log(data)
-      for(let i = 0; i < 4; i++){
-        let RP = Math.floor(Math.random() * 71);
-        this.frontField.push(data[RP]);
-      }  
-      console.log(this.frontField)
+    ...mapActions({
+      GoalKeeperF:'getPlayersGoalKepper',
+      BackFieldF:'getPlayersBackField',
+      MiddleFieldF:'getPlayersMidField',
+      ForwardFieldF:'getPlayersFrontField'
+    }),
+    SelectThisPlayer(playerInfo, id){//you can also do all this function inside vuex
+      this.$emit('InfoSelectedPlayer', [playerInfo, id])
+      if(playerInfo[0] = "frontField"){ // check the Field of the players 
+      // this.$store.state.team
+       this.team[0].frontField.forEach(element => {  //
+         if(element.id == id){ //check if the id of the field of players match the id sended to the random box array
+           element.player = playerInfo
+           console.log(this.team)
+           console.log(`Gratz you have added a player to the ID ${element.id}`)
+          // this.$store.commit('configureTeam', playerInfo)
+         }else{
+           console.log(this.team)
+           console.log("notTrue")
+         }
+       }); 
+      }
     }
   }
 }
@@ -92,6 +81,8 @@ export default {
     width: 950px;
     height:320px;
     border:3px solid black;
+    // position: absolute;
+    z-index: 1;
     .SelectPlayerCard{
       height: 300px;
       margin-top: 8px;

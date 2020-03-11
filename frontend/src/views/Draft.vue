@@ -1,6 +1,7 @@
 <template>
   <div class="draft" v-if="is_data_fetched">
-    <selectPlayer/>
+    <selectPlayer :SelectedInfo="SelectedInfo" class="SPbox (☞ﾟ∀ﾟ)☞" @InfoSelectedPlayer="acceptingPinfo($event)"/>
+    <myTest class="myTest ( ͡° ͜ʖ ͡°)"></myTest>
     <v-container fluid>
       <v-row>
         <v-col cols="12">
@@ -163,7 +164,9 @@
 
 <script>
 import selectPlayer from '../components/SelectPlayer'
+import myTest from '../components/testasd'
 import Form from '../components/Form'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "draft",
@@ -179,11 +182,21 @@ export default {
       });
   },
   methods: {
-    countTotal() {}
+    countTotal() {},
+    acceptingPinfo(e){ //accepting info from Selected player
+      console.log(e) //all the info inside the SelectThisPlayer is going to be here
+      // Also all the info from testasd.vue is going to be inside this component
+    }
+  },
+  computed:{
+    ...mapGetters({
+      SelectedInfo:'getSelected'
+    })
   },
   components: {
     selectPlayer,
-    Form
+    Form,
+    myTest
   },
   data() {
     return {
@@ -199,3 +212,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  .SPbox{
+    display: block;
+  }
+</style>
