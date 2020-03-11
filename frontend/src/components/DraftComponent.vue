@@ -1,41 +1,50 @@
-<template>
-  <div class="draft" v-if="is_data_fetched">
-    <DraftComponent/>
-    <Form/>
-  </div>
+<template >
+  <v-app id="DraftComponent">
+      <section v-for="(position,index) in formation" :Key="position"> <h1>{{index}}</h1><v-container fluid>
+                <v-row>
+                  <v-col cols="12">
+                    <v-row align="center" justify="center">
+                        <template  v-for="player in position">
+                      <v-card
+                      v-if="(player.ID !== undefined)"
+                        :key="player"
+                        max-width="250"
+                        class="mx-auto"
+                      >
+                        <v-list-item>
+                          <v-list-item-avatar color="grey"></v-list-item-avatar>
+                          <v-list-item-content>
+                            <v-list-item-title class="headline">{{player.Team}}</v-list-item-title>
+                            <v-list-item-subtitle>{{player.FirstName+ " "+player.LastName}}</v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+
+                        <v-img class="ma-12" :src="`https://restcountries.eu/data/${player.alpha3Code}.svg`" height="80"></v-img>
+
+                        <v-card-text align="center">{{player.Skills}}</v-card-text>
+                      </v-card>
+                      <div class="mx-auto" v-else :key="player">
+                      <v-btn justify="center" color="green">Add player to position</v-btn></div>
+                      </template>        </v-row>
+                  </v-col>
+                </v-row>
+              </v-container></section>
+  </v-app>
 </template>
 
 <script>
-import Form from '../components/Form'
-import DraftComponent from '../components/DraftComponent'
+// import SelectPlayer from '../components/SelectPlayer'
+// import Modal from '../components/Modal'
 
 export default {
-  name: "draft",
-  created() {
-    fetch(
-      "https://restcountries.eu/rest/v2/all"
-    )
-      .then(response => response.json())
-      .then(result => {
-        this.countries = result;
-        this.is_data_fetched = true;
-      });
-  },
-  methods: {
-    countTotal() {}
-  },
+  name: "DraftComponent",
   components: {
-    Form,
-    DraftComponent
+    //   SelectPlayer,
+    //   Modal
   },
   data() {
     return {
-      test: 'http://localhost:3000/Teams?Team=Liverpool',
-      active: false,
-      countries: [],
-      nationality: "Zimbabwe",
-      teamtotal: [],
-      pickedPlayers: [{
+      formation: {Goalkeeper: [{
       ID: 3,
       Number: 1,
       Picture: 'https://www.fifaindex.Midfielderm/static/FIFA20/images/players/5/190456.webp',
@@ -47,7 +56,8 @@ export default {
       LastName: null,
       Position: 'Goalkeeper',
       Age: 27
-    },{
+    }],
+    Defenders: [{
       ID: 94,
       Number: 6,
       Picture: 'Dejan Lovren FIFA 20',
@@ -72,31 +82,9 @@ export default {
       Position: 'Defender',
       Age: 32
     },{
-      ID: 75,
-      Number: 12,
-      Picture: 'Joe Gomez FIFA 20',
-      Team: 'Liverpool',
-      Nationality: 'United Kingdom of Great Britain and Northern Ireland',
-      alpha3Code: 'gbr',
-      Skills: 81,
-      FirstName: 'Joe',
-      LastName: 'Gomez',
-      Position: 'Defender',
-      Age: 22
     },{
-      ID: 35,
-      Number: 2,
-      Picture: 'Kyle Walker FIFA 20',
-      Team: 'Manchester City',
-      Nationality: 'United Kingdom of Great Britain and Northern Ireland',
-      alpha3Code: 'gbr',
-      Skills: 84,
-      FirstName: 'Kyle',
-      LastName: 'Walker',
-      Position: 'Defender',
-      Age: 29
-    },
-      {
+    }],
+    Midfielders: [{
       ID: 99,
       Number: 11,
       Picture: 'Erik Lamela FIFA 20',
@@ -143,7 +131,8 @@ export default {
       LastName: 'Milivojević',
       Position: 'Midfielder',
       Age: 28
-    },{
+    }],
+    Forwards: [{
       ID: 8,
       Number: 10,
       Picture: 'Harry Kane FIFA 20',
@@ -156,21 +145,10 @@ export default {
       Position: 'Forward',
       Age: 26
     },{
-      ID: 7,
-      Number: 7,
-      Picture: 'Raheem Sterling FIFA 20',
-      Team: 'Manchester City',
-      Nationality: 'United Kingdom of Great Britain and Northern Ireland',
-      alpha3Code: 'gbr',
-      Skills: 89,
-      FirstName: 'Raheem',
-      LastName: 'Sterling',
-      Position: 'Forward',
-      Age: 25
-    }],
-      formation: [1, 4, 4, 2],
-      is_data_fetched: false
-    };
+  
+    }]
   }
-};
+}
+}
+}
 </script>

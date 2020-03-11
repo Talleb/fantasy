@@ -5,7 +5,7 @@
         <li>Player One</li>
       </ul>
     </div>
-    <v-card-actions @click="getPlayersBackField">
+    <v-card-actions @click="getPlayers(index)">
       <v-btn color="green">Add player to position</v-btn>
     </v-card-actions>
     <div id="SelectPlayerBox">
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods:{
-    async getPlayersGoalKepper(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
+    async getPlayers(index)(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
       let getData = await fetch('http://localhost:3000/Goalkeeper')
       let data = await getData.json()
       console.log(data)
@@ -51,8 +51,8 @@ export default {
       }  
       console.log(this.GoalKepper)
     },
-    async getPlayersBackField(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/BackField')
+    async getPlayers(index){ // this is going to be in the parent Component and each field position is going to have a unique fetch
+      let getData = await fetch(`'http://localhost:3000/${index}'`)
       let data = await getData.json()
       console.log(data)
       for(let i = 0; i < 4; i++){
