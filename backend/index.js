@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
+
 app.use(express.json())
 app.use(cors());
 
@@ -57,6 +58,17 @@ app.get('/MidField', (request, response)=>{
 app.get('/FrontField', (request, response)=>{
   database.all('SELECT * FROM players WHERE Position = ?', 'Forward').then(playerMV =>{
     response.json(playerMV)
+  })
+})
+
+//hämtar data från formulär 
+app.post('/submit-user',  (request, response) => {
+  const submit = request.body;
+  console.log(submit)
+  console.log(submit.userName, submit.teamName, submit.points)
+  response.send(submit.userName +' '+ submit.teamName +' '+ submit.points)
+  database.run('INSERT INTO Highscore VALUES (?, ?, ?)', [submit.userName, submit.teamName, submit.points])
+      .then(() => {
   })
 })
 

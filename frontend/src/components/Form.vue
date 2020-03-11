@@ -1,7 +1,9 @@
 <template>
     <div id="form">
   <v-app id="inspire">
-    <form>
+    <form       
+    action="http://localhost:3000/submit-user" 
+      method="post">
       <v-text-field
         v-model="userName"
         :error-messages="userNameErrors"
@@ -20,12 +22,18 @@
         @input="$v.teamName.$touch()"
         @blur="$v.teamName.$touch()"
       ></v-text-field>
-      <p
+          <v-text-field
+        v-model="points"
+        label="Points"
+        required
+      ></v-text-field>
+      
+      <!-- <p
         class="totalpoints"
         label="Point"
         required
-      >TOTALPOINTS:{{totalpoints}}</p>
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
+      >TOTALPOINTS:{{totalpoints}}</p> -->
+      <v-btn class="mr-4" @click="submit({userName, teamName, points})">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
     </form>
   </v-app>
@@ -47,6 +55,7 @@
   data: () => ({
     userName: '',
     teamName: '',
+    points: '',
   }),
 
   computed: {
@@ -66,8 +75,29 @@
     },
   },
 
+  // @click="postanrop(username, teamname etc.)"
+// postAnrop(data) {
+//   fetchsafioamgp
+//   body: JSON.stringify(data),
+// Submit 
+// }
   methods: {
-    submit () {
+    submit (userName, teamName, points) {
+      fetch("http://localhost:3000/submit-user", {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(userName,teamName, points),
+})
+.then((response) => response.json())
+.then((data2) => {
+  console.log('Success:', data2);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+      console.log(userName)
       this.$v.$touch()
     },
     clear () {

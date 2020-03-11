@@ -5,6 +5,7 @@ import Players from "../views/Players.vue";
 import draft from "../views/Draft.vue";
 import Highscore from "../views/Highscore.vue";
 
+
 Vue.use(VueRouter);
 
 const routes = [
