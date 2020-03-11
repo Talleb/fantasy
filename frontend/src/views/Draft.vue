@@ -159,6 +159,7 @@
       </v-row>
     </v-container>
     <Form/>
+    {{$store.state.formation.Goalkeeper}}
   </div>
 </template>
 
