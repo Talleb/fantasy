@@ -1,7 +1,9 @@
 <template>
     <div id="form">
   <v-app id="inspire">
-    <form>
+    <form       
+    action="http://localhost:3000/submit-user" 
+      method="post">
       <v-text-field
         v-model="userName"
         :error-messages="userNameErrors"
@@ -20,17 +22,18 @@
         @input="$v.teamName.$touch()"
         @blur="$v.teamName.$touch()"
       ></v-text-field>
-      <p
-        class="totalpoints"
-        label="Point"
+          <v-text-field
+        v-model="points"
+        label="Points"
         required
-      >TOTALPOINTS:{{totalpoints}}</p>
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
+      ></v-text-field>
+      <v-btn class="mr-4" @click="submit({userName, teamName, points})">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
     </form>
   </v-app>
 </div>
 </template>
+
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength} from 'vuelidate/lib/validators'
@@ -42,11 +45,13 @@
   validations: {
     userName: { required, maxLength: maxLength(20) },
     teamName: { required, maxLength: maxLength(20) },
+    points: {required}
   },
 
   data: () => ({
     userName: '',
     teamName: '',
+    points: '',
   }),
 
   computed: {
@@ -56,6 +61,7 @@
       !this.$v.userName.maxLength && errors.push('User Name must be at most 20 characters long')
       !this.$v.userName.required && errors.push('User is required.')
       return errors
+      
     },
     teamNameErrors () {
       const errors = []
@@ -66,8 +72,30 @@
     },
   },
 
+  // @click="postanrop(username, teamname etc.)"
+// postAnrop(data) {
+//   fetchsafioamgp
+//   body: JSON.stringify(data),
+// Submit 
+// }
   methods: {
-    submit () {
+    submit (userName, teamName, points) {
+      fetch("http://localhost:3000/submit-user", {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(userName,teamName, points),
+})
+.then((response) => response.json())
+.then((data) => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+
+      console.log(userName)
       this.$v.$touch()
     },
     clear () {

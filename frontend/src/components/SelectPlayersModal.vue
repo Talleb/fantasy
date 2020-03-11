@@ -12,14 +12,14 @@
                 <li>Player One</li>
               </ul>
             </div>
-            <v-card-actions @click="getPlayersBackField">
+            <v-card-actions @click="getPlayers(chosenPosition)">
               <v-btn color="green">Add player to position</v-btn>
             </v-card-actions>
             <div id="SelectPlayerBox">
               <v-card
                 max-width="310"
                 class="mx-auto SelectPlayerCard"
-                v-for="Player in backField"
+                v-for="Player in teamPlayers"
                 :key="Player.FirstName"
               >
                 <v-list-item>
@@ -52,18 +52,19 @@ export default {
   name: "selectPlayer",
   data() {
     return {
-      dialog: false
+      dialog: false,
+      teamPlayers: this.$store.state.players,
+      chosenPosition: "Goalkeepers"
     };
   },
   methods: {
-    async getPlayers(index) {
+    async getPlayers(chosenPosition) {
       // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch(`http://localhost:3000/${index}`);
+      let getData = await fetch(`http://localhost:3000/${chosenPosition}`);
       let data = await getData.json();
-      console.log(data);
       for (let i = 0; i < 4; i++) {
         let RP = Math.floor(Math.random() * 71);
-        this.GoalKepper.push(data[RP]);
+        this.$store.state.players.push(data[RP]);
       }
     }
   }

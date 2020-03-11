@@ -46,7 +46,7 @@
         <button class="btn">Gå till Highscore listan</button>
       </router-link>
     </div>
-    <SelectPlayer></SelectPlayer>
+    <SelectPlayersModal></SelectPlayersModal>
     <div class="draften">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
@@ -96,11 +96,11 @@
 </style>
 
 <script>
-import SelectPlayer from "../components/SelectPlayer";
+import SelectPlayersModal from "../components/SelectPlayersModal";
 export default {
   name: "Home",
   components: {
-    SelectPlayer
+    SelectPlayersModal
   },
   data() {
     return {
