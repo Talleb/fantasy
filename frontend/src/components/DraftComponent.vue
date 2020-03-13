@@ -4,9 +4,9 @@
                 <v-row>
                   <v-col cols="12">
                     <v-row align="center" justify="center">
-                        <template  v-for="player in position">
+                        <template  v-for="(player, i) in position">
                       <v-card
-                      v-if="(player.ID !== undefined)"
+                      v-if="(player.ID !== null)"
                         :key="player"
                         max-width="250"
                         class="mx-auto"
@@ -23,132 +23,105 @@
 
                         <v-card-text align="center">{{player.Skills}}</v-card-text>
                       </v-card>
-                      <div class="mx-auto" v-else :key="player">
-                      <v-btn justify="center" color="green">Add player to position</v-btn></div>
+                      <div class="mx-auto" v-else :key="player"> <v-dialog v-model="dialog[index]" persistent max-width="1000">
+          <template v-slot:activator="{on}">
+            <v-btn color="primary" dark @click="getPlayers(index, i)" v-on="on">Add player to position</v-btn>
+          </template>
+          <v-card>
+            <div class="ListofPlayerSelected">
+                <p>Select your player</p>
+            </div>
+            <div id="SelectPlayerBox">
+              <v-card
+                max-width="310"
+                class="mx-auto SelectPlayerCard"
+                v-for="(Player, y) in teamPlayersCopy"
+                :key="Player.FirstName"              
+                @click="chosePlayer(teamPlayersCopy, y, i)"
+              >
+                <v-list-item>
+                  <v-list-item-avatar color="grey"></v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title class="headline TitleFont">{{
+                      Player.Team
+                    }}</v-list-item-title>
+                    <v-list-item-subtitle
+                      >
+                      {{ Player.FirstName }}
+                      {{ Player.LastName }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-img class="ma-12" :src="`https://restcountries.eu/data/${Player.alpha3Code}.svg`" height="80"></v-img>
+
+                <v-card-text align="center">{{ Player.Skills }}</v-card-text>
+              </v-card>
+            </div>
+          </v-card>
+        </v-dialog>
+        </div>
                       </template>        </v-row>
                   </v-col>
                 </v-row>
-              </v-container></section>
+              </v-container></section>  
   </v-app>
 </template>
 
 <script>
-// import SelectPlayer from '../components/SelectPlayer'
-// import Modal from '../components/Modal'
-
 export default {
+
   name: "DraftComponent",
   components: {
-    //   SelectPlayer,
-    //   Modal
   },
-  data() {
+    data() {
     return {
-      formation: {Goalkeeper: [{
-      ID: 3,
-      Number: 1,
-      Picture: 'https://www.fifaindex.Midfielderm/static/FIFA20/images/players/5/190456.webp',
-      Team: 'Liverpool',
-      Nationality: 'Brazil',
-      alpha3Code: 'bra',
-      Skills: 90,
-      FirstName: 'Alisson',
-      LastName: null,
-      Position: 'Goalkeeper',
-      Age: 27
-    }],
-    Defenders: [{
-      ID: 94,
-      Number: 6,
-      Picture: 'Dejan Lovren FIFA 20',
-      Team: 'Liverpool',
-      Nationality: 'Croatia',
-      alpha3Code: 'hrv',
-      Skills: 80,
-      FirstName: 'Dejan',
-      LastName: 'Lovren',
-      Position: 'Defender',
-      Age: 30
-    },{
-      ID: 59,
-      Number: 23,
-      Picture: 'David Luiz FIFA 20',
-      Team: 'Arsenal',
-      Nationality: 'Brazil',
-      alpha3Code: 'bra',
-      Skills: 82,
-      FirstName: 'David',
-      LastName: 'Luiz',
-      Position: 'Defender',
-      Age: 32
-    },{
-    },{
-    }],
-    Midfielders: [{
-      ID: 99,
-      Number: 11,
-      Picture: 'Erik Lamela FIFA 20',
-      Team: 'Tottenham',
-      Nationality: 'Argentina',
-      alpha3Code: 'arg',
-      Skills: 80,
-      FirstName: 'Erik',
-      LastName: 'Lamela',
-      Position: 'Midfielder',
-      Age: 27
+      dialog: this.$store.state.modal,
+      teamPlayers: this.$store.state.players,
+      indexPosition: null,
+      chosenPosition: null,
+      formation: this.$store.state.formation,
+      teamPlayersCopy: null,
+      selectedPlayer: null
+    };
+  },
+  methods: {
+    async getPlayers(index, i) {
+        this.selectedPlayer = []
+        this.teamPlayersCopy = this.teamPlayers.slice()
+        this.indexPosition = i
+        this.chosenPosition = index
+      // this is going to be in the parent Component and each field position is going to have a unique fetch
+      let getData = await fetch(`http://localhost:3000/${this.chosenPosition}`);
+      let data = await getData.json();
+      for (let i = 0; i < 4; i++) {
+        let RP = Math.floor(Math.random() * 71);
+        this.teamPlayersCopy.push(data[RP]);
+      }
     },
-      {ID: 100,
-      Number: 17,
-      Picture: 'Moussa Sissoko FIFA 20',
-      Team: 'Tottenham',
-      Nationality: 'France',
-      alpha3Code: 'fra',
-      Skills: 80,
-      FirstName: 'Moussa',
-      LastName: 'Sissoko',
-      Position: 'Midfielder',
-      Age: 30},{
-      ID: 95,
-      Number: 15,
-      Picture: 'Alex Oxlade-ChaDefendererlain FIFA 20',
-      Team: 'Liverpool',
-      Nationality: 'United Kingdom of Great Britain and Northern Ireland',
-      alpha3Code: 'gbr',
-      Skills: 80,
-      FirstName: 'Alex',
-      LastName: 'Oxlade-ChaDefendererlain',
-      Position: 'Midfielder',
-      Age: 26
-    },{
-      ID: 92,
-      Number: 4,
-      Picture: 'Luka Milivojević FIFA 20',
-      Team: 'Crystal Palace',
-      Nationality: 'Serbia',
-      alpha3Code: 'srb',
-      Skills: 81,
-      FirstName: 'Luka',
-      LastName: 'Milivojević',
-      Position: 'Midfielder',
-      Age: 28
-    }],
-    Forwards: [{
-      ID: 8,
-      Number: 10,
-      Picture: 'Harry Kane FIFA 20',
-      Team: 'Tottenham',
-      Nationality: 'United Kingdom of Great Britain and Northern Ireland',
-      alpha3Code: 'gbr',
-      Skills: 89,
-      FirstName: 'Harry',
-      LastName: 'Kane',
-      Position: 'Forward',
-      Age: 26
-    },{
-  
-    }]
+chosePlayer(teamPlayersCopy, y, i){
+this.selectedPlayer.splice([this.indexPosition], 1, teamPlayersCopy[y])
+this.$store.state.formation[this.chosenPosition].splice([this.indexPosition], 1, teamPlayersCopy[y])
+this.dialog[i] = false
+      },
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+#SelectPlayerBox {
+  display: flex;
+  margin: 10px auto;
+  width: 950px;
+  height: 320px;
+  border: 3px solid black;
+  .SelectPlayerCard {
+    height: 300px;
+    margin-top: 8px;
+    width: 220px;
+  }
+  .TitleFont {
+    font-size: 1rem !important;
   }
 }
-}
-}
-</script>
+</style>

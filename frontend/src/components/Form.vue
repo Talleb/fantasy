@@ -1,7 +1,9 @@
 <template>
     <div id="form">
   <v-app id="inspire">
-    <form>
+    <form       
+    action="http://localhost:3000/submit-user" 
+      method="post">
       <v-text-field
         v-model="userName"
         :error-messages="userNameErrors"
@@ -20,17 +22,15 @@
         @input="$v.teamName.$touch()"
         @blur="$v.teamName.$touch()"
       ></v-text-field>
-      <p
-        class="totalpoints"
-        label="Point"
+          <p
         required
-      >TOTALPOINTS:{{totalpoints}}</p>
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
-      <v-btn @click="clear">clear</v-btn>
+      >{{points}}</p>
+      <v-btn class="mr-4" color="primary" @click="submit({userName, teamName, points})">submit</v-btn>
     </form>
   </v-app>
 </div>
 </template>
+
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength} from 'vuelidate/lib/validators'
@@ -42,13 +42,16 @@
   validations: {
     userName: { required, maxLength: maxLength(20) },
     teamName: { required, maxLength: maxLength(20) },
+    points: {required}
   },
 
-  data: () => ({
+  data (){
+    return {
     userName: '',
     teamName: '',
-  }),
-
+    teamtotal: null,
+  }
+  },
   computed: {
     userNameErrors () {
       const errors = []
@@ -56,6 +59,7 @@
       !this.$v.userName.maxLength && errors.push('User Name must be at most 20 characters long')
       !this.$v.userName.required && errors.push('User is required.')
       return errors
+      
     },
     teamNameErrors () {
       const errors = []
@@ -64,17 +68,43 @@
       !this.$v.teamName.required && errors.push('Team Name is required.')
       return errors
     },
+    points() {
+      const teamtotal =
+      [
+        ...this.$store.state.formation.Goalkeepers,
+        ...this.$store.state.formation.Defenders,
+        ...this.$store.state.formation.Midfielders,
+        ...this.$store.state.formation.Forwards
+      ]
+        .filter(player => player.Skills !== undefined)
+        .reduce((acc, curr) => {
+          return acc + curr.Skills;
+        }, 0)
+        return teamtotal
+    }
   },
-
   methods: {
-    submit () {
+    submit (userName, teamName, points) {
+      fetch("http://localhost:3000/submit-user", {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(userName,teamName, points),
+})
+.then((response) => response.json())
+.then((data) => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+
+      console.log(userName)
       this.$v.$touch()
     },
-    clear () {
-      this.$v.$reset()
-      this.userName = ''
-      this.teamName = ''
-      },
     },
   }
+  // this.$store.state.formation.flat(infinity) = this.test
+  // v-if="this.test.ID !== null"
 </script>

@@ -46,13 +46,14 @@
         <button class="btn">Gå till Highscore listan</button>
       </router-link>
     </div>
-    <Modal />
+    <div>
     <div class="draften">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
       <router-link to="/Draft">
         <button class="btn">starta draften</button>
       </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -96,11 +97,9 @@
 </style>
 
 <script>
-import Modal from "../components/Modal";
 export default {
   name: "Home",
   components: {
-    Modal
   },
   data() {
     return {
@@ -112,7 +111,6 @@ export default {
       .then(response => response.json())
       .then(result => {
         this.highscore = result;
-        console.log(result);
       });
   },
   computed: {

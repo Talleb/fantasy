@@ -21,24 +21,29 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-img class="ma-12"  height="80"></v-img>
+                <v-img class="ma-12" height="80"></v-img>
 
-        <v-card-text align="center">{{Player.Skills}}</v-card-text>
-      </v-card>
-    </div>
+                <v-card-text align="center">{{ Player.Skills }}</v-card-text>
+              </v-card>
+            </div>
+          </v-card>
+        </v-dialog>
+      </v-row>
+    </v-app>
   </div>
 </template>
 
 <script>
 export default {
-  name:"selectPlayer",
-  data(){
-    return{
-      GoalKepper:[], //Players Positions, this is going to send as a PROP to the SelectPlayer Component
-      backField:[], //This is going to pass to the children component
-      midField:[],
-      frontField:[]
-    }
+  name: "selectPlayer",
+  data() {
+    return {
+      dialog: false,
+      GoalKepper: [], //Players Positions, this is going to send as a PROP to the SelectPlayer Component
+      backField: [], //This is going to pass to the children component
+      midField: [],
+      frontField: []
+    };
   },
   methods:{
     async getPlayers(index)(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
@@ -48,8 +53,8 @@ export default {
       for(let i = 0; i < 4; i++){
         let RP = Math.floor(Math.random() * 71);
         this.GoalKepper.push(data[RP]);
-      }  
-      console.log(this.GoalKepper)
+      }
+      console.log(this.GoalKepper);
     },
     async getPlayers(index){ // this is going to be in the parent Component and each field position is going to have a unique fetch
       let getData = await fetch(`'http://localhost:3000/${index}'`)
@@ -58,48 +63,49 @@ export default {
       for(let i = 0; i < 4; i++){
         let RP = Math.floor(Math.random() * 71);
         this.backField.push(data[RP]);
-      }  
-      console.log(this.backField)
+      }
+      console.log(this.backField);
     },
-    async getPlayersMidField(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/MidField')
-      let data = await getData.json()
-      console.log(data)
-      for(let i = 0; i < 4; i++){
+    async getPlayersMidField() {
+      // this is going to be in the parent Component and each field position is going to have a unique fetch
+      let getData = await fetch("http://localhost:3000/MidField");
+      let data = await getData.json();
+      console.log(data);
+      for (let i = 0; i < 4; i++) {
         let RP = Math.floor(Math.random() * 71);
         this.midField.push(data[RP]);
-      }  
-      console.log(this.midField)
+      }
+      console.log(this.midField);
     },
-    async getPlayersFrontField(){ // this is going to be in the parent Component and each field position is going to have a unique fetch
-      let getData = await fetch('http://localhost:3000/FrontField')
-      let data = await getData.json()
-      console.log(data)
-      for(let i = 0; i < 4; i++){
+    async getPlayersFrontField() {
+      // this is going to be in the parent Component and each field position is going to have a unique fetch
+      let getData = await fetch("http://localhost:3000/FrontField");
+      let data = await getData.json();
+      console.log(data);
+      for (let i = 0; i < 4; i++) {
         let RP = Math.floor(Math.random() * 71);
         this.frontField.push(data[RP]);
-      }  
-      console.log(this.frontField)
+      }
+      console.log(this.frontField);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  #SelectPlayerBox{
-    display:flex;
-    margin: 10px auto;
-    width: 950px;
-    height:320px;
-    border:3px solid black;
-    .SelectPlayerCard{
-      height: 300px;
-      margin-top: 8px;
-      width: 220px;
-    }
-    .TitleFont{
-      font-size: 1rem !important;
-    }
+#SelectPlayerBox {
+  display: flex;
+  margin: 10px auto;
+  width: 950px;
+  height: 320px;
+  border: 3px solid black;
+  .SelectPlayerCard {
+    height: 300px;
+    margin-top: 8px;
+    width: 220px;
   }
-
+  .TitleFont {
+    font-size: 1rem !important;
+  }
+}
 </style>
