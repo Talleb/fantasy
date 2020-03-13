@@ -4,28 +4,19 @@
       <img src="img/PremierLeague.png" class="bg-logo" />
       <img src="img/teams.png" class="bg-teams" />
     </div>
-
+<section class="ma-12">
     <h1>Information</h1>
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quaerat quam
-      quod? Vitae tempore eius sapiente quaerat reiciendis aperiam voluptates
-      libero ipsa voluptatum iste deserunt ea, nobis rerum iure eos! Modi non
-      consectetur ut eius nostrum itaque ducimus ex atque cum magnam cumque
-      dicta facere, delectus debitis. Animi error aperiam, dolore deleniti fugit
-      dolorem accusantium debitis delectus voluptatem laborum ducimus! Dicta
-      tempore eos aliquam aut ex beatae totam a! Quaerat culpa explicabo
-      expedita odit exercitationem illo cumque et odio? Aspernatur, animi
-      repellat. Maxime aspernatur sunt excepturi adipisci autem reprehenderit
-      voluptates! Corrupti, temporibus dolores, perferendis aliquid delectus
-      nobis dolore ea quibusdam pariatur illo quam nihil neque quas ipsum dicta.
-      Nemo expedita ipsum tempora dicta? Delectus iure repellat cupiditate ipsum
-      recusandae rerum. Exercitationem numquam aspernatur, ipsa perspiciatis
-      obcaecati sint voluptas, non, nostrum quas nisi harum voluptatibus
-      accusamus. Commodi, nulla quam? Impedit ab beatae soluta illum autem eos
-      reiciendis repudiandae iure adipisci labore!
+      Discover the origins and history of the top tier of English football 
+The 2018/19 season was the 27th of the Premier League after its formation in 1992. 
+After numerous discussions with football authorities, players and television broadcasters, the First Division clubs resigned from the Football League in May 1992 and the Premier League was formed, with the inaugural campaign starting on Saturday 15 August of that year.
+Below, each of the 26 seasons has been charted with the story of how the titles were won and the players who starred.
+From 2011/12's incredible finale, to Arsenal's "Invincibles", as well as Manchester United's record 13 triumphs, find out more about the rich history of the Premier League.
     </p>
+     </section>
     <div class="grid">
-      <h1>Highscore top 5</h1>
+      <section class="ma-12">
+        <h1>Highscore top 5</h1>
       <table class="table">
         <thead>
           <tr>
@@ -42,17 +33,16 @@
           </tr>
         </tbody>
       </table>
-      <router-link to="/highscore">
-        <button class="btn">Gå till Highscore listan</button>
-      </router-link>
+        <v-btn color="green darken-4" dark @click="$router.push('/Highscore')">Highscore</v-btn>
+             </section>
     </div>
     <div>
     <div class="draften">
+      <section class="ma-12">
       <h3>Till draften</h3>
       <p>Vill du starta draften? Klicka nedan.</p>
-      <router-link to="/Draft">
-        <button class="btn">starta draften</button>
-      </router-link>
+        <v-btn color="green darken-4" dark @click="$router.push('/Draft')">starta draften</v-btn>
+        </section>
       </div>
     </div>
   </div>

@@ -25,7 +25,15 @@
           <p
         required
       >{{points}}</p>
-      <v-btn class="mr-4" color="primary" @click="submit({userName, teamName, points})">submit</v-btn>
+      <router-link to="/highscore">
+          <v-btn
+            class="mr-4"
+            color="primary"
+            :disabled="isDisabled"
+            :class="{ disabled: isDisabled }"
+            @click="submit({userName, teamName, points})"
+          >submit</v-btn>
+        </router-link>
     </form>
   </v-app>
 </div>
@@ -53,6 +61,13 @@
   }
   },
   computed: {
+    isDisabled() {
+      if (this.userName.length > 3 && this.teamName.length > 3) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     userNameErrors () {
       const errors = []
       if (!this.$v.userName.$dirty) return errors

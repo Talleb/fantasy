@@ -1,7 +1,8 @@
 <template>
   <div class="draft" v-if="is_data_fetched">
     <DraftComponent/>
-    <Form/>
+    <div class="ma-12">
+    <Form/></div>
   </div>
 </template>
 

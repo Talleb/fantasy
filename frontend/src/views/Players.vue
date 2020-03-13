@@ -1,5 +1,7 @@
 <template>
-  <v-card>
+<div class="home">
+    <v-app id="inspire">
+  <v-card class="ma-12">
     <!-- <button @click="getPlayers">Check players</button> -->
     <v-card-title>
       Player Information
@@ -18,6 +20,8 @@
       :search="search"
     ></v-data-table>
   </v-card>
+      </v-app>
+  </div>
 </template>
 
 <script>
@@ -65,6 +69,38 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+.home {
+  width: 80%;
+  min-height: 100%;
+  margin: 0 auto;
+}
+.bg-logo {
+  height: 400px;
+}
+.bg-teams {
+  width: 80%;
+}
+.images {
+  text-align: center;
+  width: 100%;
+}
 
+.btn {
+  padding: 10px;
+  background-color: #f3f3f3;
+  color: black;
+}
+.table {
+  width: 100%;
+}
+.table th {
+  width: 33%;
+}
+.table td {
+  text-align: center;
+}
+.table tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
 </style>

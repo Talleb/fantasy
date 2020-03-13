@@ -4,31 +4,31 @@
       <v-list dense>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
+            <v-icon>mdi-soccer</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
+          <v-list-item-content @click="$router.push('/')">
             <v-list-item-title>
-              <router-link to="/">Home</router-link>
+              Home
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
+            <v-icon>mdi-stadium</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
+            <v-list-item-content @click="$router.push('/Draft')">
             <v-list-item-title>
-              <router-link to="/Draft">Ultimate Draft</router-link>
+              Draft
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
+            <v-icon>mdi-run</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
+          <v-list-item-content @click="$router.push('/Players')">
             <v-list-item-title>
-              <router-link to="/players">Players</router-link>
+              Players
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -36,9 +36,9 @@
           <v-list-item-action>
             <v-icon>mdi-graph</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
+          <v-list-item-content @click="$router.push('/Highscore')">
             <v-list-item-title>
-              <router-link to="/highscore">Highscore</router-link>
+              Highscore
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>

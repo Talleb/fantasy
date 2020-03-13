@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <v-app id="inspire">
-      <v-card>
+      <v-card class="ma-12">
         <v-card-title>
           Highscore Table
           <v-spacer></v-spacer>
