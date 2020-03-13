@@ -40,25 +40,24 @@
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate'
-  import { required, maxLength} from 'vuelidate/lib/validators'
+import { validationMixin } from "vuelidate";
+import { required, maxLength } from "vuelidate/lib/validators";
 
-  export default {
-    mixins: [validationMixin],
+export default {
+  mixins: [validationMixin],
 
-    
   validations: {
     userName: { required, maxLength: maxLength(20) },
     teamName: { required, maxLength: maxLength(20) },
-    points: {required}
+    points: { required }
   },
 
-  data (){
+  data() {
     return {
-    userName: '',
-    teamName: '',
-    teamtotal: null,
-  }
+      userName: "",
+      teamName: "",
+      teamtotal: null
+    };
   },
   computed: {
     isDisabled() {
@@ -76,16 +75,16 @@
       return errors
       
     },
-    teamNameErrors () {
-      const errors = []
-      if (!this.$v.teamName.$dirty) return errors
-      !this.$v.teamName.maxLength && errors.push('Team Name must be at most 20 characters long')
-      !this.$v.teamName.required && errors.push('Team Name is required.')
-      return errors
+    teamNameErrors() {
+      const errors = [];
+      if (!this.$v.teamName.$dirty) return errors;
+      !this.$v.teamName.maxLength &&
+        errors.push("Team Name must be at most 20 characters long");
+      !this.$v.teamName.required && errors.push("Team Name is required.");
+      return errors;
     },
     points() {
-      const teamtotal =
-      [
+      const teamtotal = [
         ...this.$store.state.formation.Goalkeepers,
         ...this.$store.state.formation.Defenders,
         ...this.$store.state.formation.Midfielders,
@@ -94,32 +93,31 @@
         .filter(player => player.Skills !== undefined)
         .reduce((acc, curr) => {
           return acc + curr.Skills;
-        }, 0)
-        return teamtotal
+        }, 0);
+      return teamtotal;
     }
   },
   methods: {
-    submit (userName, teamName, points) {
+    submit(userName, teamName, points) {
       fetch("http://localhost:3000/submit-user", {
-  method: 'POST', // or 'PUT'
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(userName,teamName, points),
-})
-.then((response) => response.json())
-.then((data) => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userName, teamName, points)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Success:", data);
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
 
-      console.log(userName)
-      this.$v.$touch()
-    },
-    },
+      this.$v.$touch();
+    }
   }
-  // this.$store.state.formation.flat(infinity) = this.test
-  // v-if="this.test.ID !== null"
+};
+// this.$store.state.formation.flat(infinity) = this.test
+// v-if="this.test.ID !== null"
 </script>
