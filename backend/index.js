@@ -27,6 +27,26 @@ app.get('/Jugadores', (request, response) => {
   });
 });
 
+app.get('/Teams', (request, response) => {
+  database.all('SELECT * FROM Teams WHERE Team = ?', request.query.Team).then(Team => {
+    response.send(Team[0].Crest)
+  })
+})
+
+// app.get('/Teams', (request, response) => {
+//   database.all('SELECT * FROM Teams').then(Teams => {
+//     response.send(Teams)
+//     console.log(Teams)
+//   })
+// })
+
+//hämta team crest (params?)
+// app.get('/Teams/', (request, response) => { //Selecting players
+//   database.all('SELECT * FROM players').then(Jugadores => {
+//     response.json(Jugadores)
+//   })
+// })
+
 app.get('/Highscore', (request, response) => {
   database.all('SELECT * FROM Highscore').then(score => {
     response.send(score);
@@ -81,7 +101,7 @@ app.post('/submit-user', (request, response) => {
       submit.teamName,
       submit.points
     ])
-    .then(() => {});
+    .then(() => { });
 });
 
 app.listen(3000);
